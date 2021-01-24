@@ -1,5 +1,5 @@
 /*
-*	Baekjoon - #10172
+	Baekjoon - #10172
 	printing Dog
 	Date - 1/24/2021
 	coded by Nyimo
