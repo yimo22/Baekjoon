@@ -1,7 +1,7 @@
 /*
-*	Baekjoon - #2588
-*	Date : 1/24/2021
-*	Coded by Nyimo
+	Baekjoon - #2588
+	Date : 1/24/2021
+	Coded by Nyimo
 */
 #include <iostream>
 using namespace std;
