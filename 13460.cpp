@@ -11,6 +11,7 @@ using namespace std;
 int map[Max][Max];
 int direction[4][2] = { {1,0},{0,1},{-1,0},{0,-1}};
 bool Isvisited[Max][Max][Max][Max];
+int answ=-1;
 typedef struct balls{
 	int rx;
 	int ry;
@@ -101,15 +102,13 @@ int main(){
 
 		// 10번 보다 초과하는 경우 -1을 출력한다.
 		if(temp.GetDp() > 10){
-				cout << "-1\n";
+			answ = -1;
 				break;
 		}
-
 		
-
 		// 최적 경우를 찾은 경우
 		if(temp.rGetX() == destX && temp.rGetY() == destY){
-			cout << temp.GetDp() << "\n";
+			answ = temp.GetDp();
 			break;
 		}
 	
@@ -122,12 +121,13 @@ int main(){
 		Moving(bx,by,i);
 		Moving(rx,ry,i);
 		
+		if(by == destY && bx == destX) // blue 만 도착한 경우 
+			continue;
+
 		// BlueBall 과 Redball이 동시 도착한 경우
 		if(by == ry && ry == destY && bx == rx && rx == destX){
-			cout << "-1\n";
-			break;
-		}else if(by == destY && bx == destX) // blue 만 도착한 경우 
 			continue;
+		}
 
 		if(bx == rx && by == ry){
 			switch(i){
@@ -142,15 +142,13 @@ int main(){
 			default : break;
 			}
 		}
-
 			// 이미 방문 했을 경우
 			if(Isvisited[rx][ry][bx][by])
 				continue;
 			balls ptr= {rx,ry,bx,by,temp.GetDp()+1};
 			q.push(ptr);
 		}
-
 	}
-	
+		cout << answ;
 	return 0;
 }
