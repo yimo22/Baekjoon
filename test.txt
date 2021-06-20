@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 test
+=======
+Testing git
+Test ver.#2
+>>>>>>> 8c0f93314d8f4daeaa2d03041837177f0d12a0f8
