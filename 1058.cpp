@@ -4,7 +4,7 @@ using namespace std;
 int main(){
   int N;
   cin >> N;
-  int arr[N][N]={0};
+  int arr[50][50]={0};
   char c;
   for(int i=0;i<N;i++){
     for(int j=0;j<N;j++){
@@ -13,7 +13,7 @@ int main(){
         arr[i][j] = 1;
     }
   }
-  int num_friend[N] = {0};
+  int num_friend[50] = {0};
   for(int person = 0;person < N;person++){
     // 0~N-1 까지 탐색 시작
     for(int i=0;i<N;i++){
