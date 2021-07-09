@@ -6,23 +6,26 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 int N ;
 int answ = 0;
+int board[15];
 using namespace std;
 
-bool isPromising(vector<int> brd){
+bool isPromising(int depth){
   // 대각선에 존재 or 같은 열에 존재할경우 유망하지 않음
-  int row = brd.size()-1;
-  int col = brd.back();
+  int row = depth;
+  int col = board[depth];
+
   for(int i=0;i<row ;i++){
-    if( abs(brd[i] - col)  == abs(i-row) || col == brd[i] )
+    if( abs(board[i] - col)  == (row-i) || col == board[i] )
       return false;
   }
   return true;
 }
-void solved(vector<int> board, int depth){
-
+void solved( int depth){
+  // board는 [0,N) 임.
   int cnt = 0;
   if( depth == N){
     answ++;
@@ -30,10 +33,10 @@ void solved(vector<int> board, int depth){
   }
   
   for(int i=0;i<N;i++){
-    board.push_back(i);
-    if(isPromising(board))
-      solved(board,depth+1);
-    board.pop_back();
+    board[depth] = i;
+    // 유망할 경우
+    if(isPromising(depth))
+      solved(depth+1);
   }
   return ;
 }
@@ -46,7 +49,7 @@ int main(){
   
   cin >> N;
 
-  vector<int>  v;
-  solved(v,0);
+  // v[i]= j , i행 일떄의 열값이 j임.
+  solved(0);
   cout << answ << endl;
 }
