@@ -3,63 +3,70 @@
   Coded by yimo22
 */
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
 
-bool isPromising(int board[9][9],int row, int col, int val){
+int board[9][9];
+vector<pair<int,int> > list;
+bool isPromising(int row , int col , int val){
+  int sub_col = col / 3, sub_row = row / 3;
+  
+  // row & col 검사
   for(int i=0;i<9;i++){
+    // row에 대하여 검사
     if(board[row][i] == val) return false;
+    // col에 대하여 검사
     if(board[i][col] == val) return false;
+  }
+
+  // sub_square에 대하여 검사
+  for(int i= sub_row * 3 ; i<sub_row*3 + 3;i++){
+    for(int j=sub_col * 3;j<sub_col*3 + 3;j++){
+      if(board[i][j] == val){
+        return false;
+      }
+    }
   }
   return true;
 }
-void solved(int board[9][9], int depth){
-  if(depth % 3 == 0 && depth != 0){
-    bool Check[3][10] = {false};
-    // 정사각형에 대하여 검사.
-    for(int i = depth -3; i < depth; i++){
-      for(int j=0;j<9;j++){
-        Check[j/3][board[i][j]] = true;
-      }
-    }
-    for(int i=0;i<3;i++){
-      for(int j=1;j<=9;j++){
-        if(Check[i][j] == false){
-          return ;
-        }
-      }
-    }
-  }
-  if(depth == 9){
+void solved(int depth){
+  if(depth == list.size()){
     for(int i=0;i<9;i++){
-      for(int j=0;j<9;j++)
+      for(int j=0;j<9;j++){
         cout << board[i][j] << " ";
-      
+      }
       cout << endl;
     }
-    return ;
+
+    exit(0);
   }
 
-  // 0의 위치를 파악
-  vector<int> col;
-  for(int i=0;i<9;i++){
-    if(board[depth][i] == 0)
-      col.push_back(i);
+  // start
+  for(int num = 1;num<=9;num++){
+    int x_pos = list[depth].first;
+    int y_pos = list[depth].second;
+    if(isPromising(x_pos,y_pos,num)){
+      board[x_pos][y_pos] = num;
+      solved(depth+1);
+      board[x_pos][y_pos] = 0;
+    }
   }
-
-  
 }
 int main(){
-  int board[9][9];
+
+  // input board
   for(int i=0;i<9;i++){
     for(int j=0;j<9;j++){
       cin >> board[i][j];
+      if(board[i][j] == 0){
+        list.push_back(make_pair(i,j));
+      }
     }
   }
-
-  solved(board,0);
-
-
+  
+  // solved
+  solved(0);
   return 0;
 }
