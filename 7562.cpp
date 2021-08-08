@@ -1,9 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <queue>
-#include <unistd.h>
-#include <vector>
-
 #define MAX 300
 
 using namespace std;
@@ -47,13 +44,11 @@ int main(){
 
       int cur_x = q.front().second.first, cur_y = q.front().second.second, cur_cnt = q.front().first;
       q.pop();
-      //cout << cur_x << " " << cur_y  << endl;
-      //sleep(1);
       if(visited[cur_x][cur_y])
         continue;
 
       if(cur_x == end.second.first && cur_y == end.second.second){
-        answ.push_back(cur_cnt);
+        cout << cur_cnt << endl;
         break;
       }
       // checking visit
@@ -61,8 +56,6 @@ int main(){
 
       for(int i=0;i<8;i++){
         int next_x = cur_x + dir[i][0], next_y = cur_y + dir[i][1];
-        //cout << "next : " << next_x << " " << next_y << endl;
-        //sleep(1);
         if( next_x < 0 || next_x >= L || next_y < 0 || next_y >= L)
           continue;
 
@@ -74,7 +67,4 @@ int main(){
     T--;
   }
 
-  for(int i=0;i<answ.size();i++){
-    cout << answ[i] << endl;
-  }
 }
